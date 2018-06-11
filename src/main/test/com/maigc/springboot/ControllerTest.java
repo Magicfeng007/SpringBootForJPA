@@ -162,5 +162,33 @@ public class ControllerTest {
         }
     }
 
+    @Test
+    public void queryMobile(){
+        try {
+            mockMvc.perform(MockMvcRequestBuilders.get("/queryMobile")
+                    .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+                    .andExpect(MockMvcResultMatchers.status().isOk())
+                    .andDo(MockMvcResultHandlers.print());
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void queryMobileByJdbcTemplate(){
+        try {
+            mockMvc.perform(MockMvcRequestBuilders.get("/queryMobileByJdbcTemplate")
+                    .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE).param("brand","XIAOMI"))
+                    .andExpect(MockMvcResultMatchers.status().isOk())
+                    .andDo(MockMvcResultHandlers.print());
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
 }

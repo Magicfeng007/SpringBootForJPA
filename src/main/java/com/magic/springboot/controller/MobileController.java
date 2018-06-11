@@ -1,9 +1,12 @@
 package com.magic.springboot.controller;
 
+import com.magic.springboot.dao.MobileDao;
 import com.magic.springboot.model.MobilePhone;
 import com.magic.springboot.repository.MobileRepository;
 import com.magic.springboot.vo.MobilePhoneVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,6 +22,9 @@ public class MobileController {
 
     @Autowired
     private MobileRepository mobileRepository;
+
+    @Autowired
+    private MobileDao mobileDao;
 
     @RequestMapping(value = "/addMobileList",method = RequestMethod.POST)
     public MobilePhone save(MobilePhone mobilePhone){
@@ -91,5 +97,18 @@ public class MobileController {
         System.out.println("mobilePhoneMap size:" + mobilePhoneMap.values().size());
         return mobileRepository.save(mobilePhoneMap.values());
     }
+
+    @RequestMapping(value = "/queryMobile",method = RequestMethod.GET)
+    public Iterable<MobilePhone> queryMobile(String brand){
+        Pageable pageable = new PageRequest(1,2);
+        return mobileRepository.findAll(pageable);
+    }
+
+    @RequestMapping(value = "/queryMobileByJdbcTemplate",method = RequestMethod.GET)
+    public List<Map<String, Object>> queryMobileByJdbcTemplate(String brand){
+        return mobileDao.queryMobile(brand);
+    }
+
+
 
 }
