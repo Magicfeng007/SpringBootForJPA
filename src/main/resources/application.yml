@@ -1,6 +1,7 @@
 server:
   port: 8080
-  servlet-path: /
+  servlet-path: /JPA #servlet映射路径模式，对应日志中打印的：Mapping servlet: 'dispatcherServlet' to [/JPA/*]
+  context-path: /SpringBoot #应用程序上下文（一般为项目名称）
 
 spring:
     mvc:
